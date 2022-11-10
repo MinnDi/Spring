@@ -10,13 +10,6 @@ import javax.annotation.PreDestroy;
 @Scope("singleton")
 public class ClassicalMusic implements Music {
 
-    private ClassicalMusic() {
-    }
-
-    public static ClassicalMusic factoryMethod() {
-        return new ClassicalMusic();
-    }
-
     @Override
     public String getSong() {
         return "Some classical music";

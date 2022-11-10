@@ -1,37 +1,29 @@
 package ru.example.mindi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MusicPlayer {
-    private ClassicalMusic classicalMusic;
-    private RockMusic rockMusic;
+    private Music music1;
+    private Music music2;
 
+    @Value("${musicPlayer.name}")
     private String name;
+    @Value("${musicPlayer.volume}")
     private int volume;
 
     @Autowired
-    public MusicPlayer(ClassicalMusic classicalMusic, RockMusic rockMusic) {
-        this.classicalMusic = classicalMusic;
-        this.rockMusic = rockMusic;
-    }
-
-    public MusicPlayer() {
+    public MusicPlayer(@Qualifier("classicalMusic") Music music1, @Qualifier("rockMusic") Music music2) {
+        this.music1 = music1;
+        this.music2 = music2;
     }
 
     public void playMusic() {
-        System.out.println("Playing " + classicalMusic.getSong());
-        System.out.println("Playing " + rockMusic.getSong());
+        System.out.println("Playing " + music1.getSong() + " and " + music2.getSong());
     }
-//
-//    public Music getMusic() {
-//        return music;
-//    }
-//
-//    public void setMusic(Music music) {
-//        this.music = music;
-//    }
 
     public String getName() {
         return name;
